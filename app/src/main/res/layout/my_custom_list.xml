@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="@android:color/holo_red_light"
     android:layout_height="match_parent">
 
     <TextView
@@ -17,6 +18,8 @@
 
     <ImageView
         android:id="@+id/imageView"
+        android:background="@android:color/black"
+        android:adjustViewBounds="true"
         android:layout_width="150dp"
         android:layout_height="150dp"/>
 
@@ -33,14 +36,29 @@
         android:textSize="25dp" />
 
     <Button
-        android:id="@+id/buttonDetails"
-        android:layout_width="match_parent"
+        android:id="@+id/buttonRemove"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/imageView"
         android:layout_toEndOf="@+id/imageView"
         android:layout_toRightOf="@+id/imageView"
+        android:text="Remove Items"
+        android:background="#FF0000"
+        android:padding="5dp"
+        android:layout_marginRight="5dp"
+        android:textColor="#FFFFFF"/>
+
+    <Button
+        android:id="@+id/buttonDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/buttonRemove"
+        android:layout_toRightOf="@+id/buttonRemove"
+        android:layout_alignParentRight="true"
         android:text="View Details"
         android:background="#FF0000"
+        android:padding="5dp"
+        android:layout_marginRight="5dp"
         android:textColor="#FFFFFF"/>
 
 </RelativeLayout>

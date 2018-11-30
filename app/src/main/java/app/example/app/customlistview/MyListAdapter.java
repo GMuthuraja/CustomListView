@@ -1,27 +1,25 @@
 package app.example.app.customlistview;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
+import java.util.ArrayList;
 
-import java.util.List;
 
 public class MyListAdapter extends ArrayAdapter {
 
 
-    List<Cars> car_array;
+    ArrayList<Cars> car_array;
     int resource;
     Context context;
 
-    public MyListAdapter(Context context_param, int resource_param, List car_param){
+    public MyListAdapter(Context context_param, int resource_param, ArrayList car_param){
         super(context_param, resource_param, car_param);
         this.context = context_param;
         this.resource = resource_param;
@@ -30,21 +28,40 @@ public class MyListAdapter extends ArrayAdapter {
 
 
     @Override
-    public View getView(int position, View child, ViewGroup parent){
+    public View getView(final int position, View child, ViewGroup parent){
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(this.resource, null);
+        View view = inflater.inflate(resource, null);
 
 
-        ImageView imageView = view.findViewById(R.id.imageView);
-        TextView textViewName = view.findViewById(R.id.textViewName);
-        TextView textViewBrand = view.findViewById(R.id.textViewBrand);
-        Button buttonDetails = view.findViewById(R.id.buttonDetails);
+        ImageView imageView = (ImageView) view.findViewById(R.id.imageView);
+        TextView textViewName = (TextView) view.findViewById(R.id.textViewName);
+        TextView textViewBrand = (TextView) view.findViewById(R.id.textViewBrand);
+        Button buttonRemove = (Button) view.findViewById(R.id.buttonRemove);
+        Button buttonDetails = (Button) view.findViewById(R.id.buttonDetails);
 
-        Cars car = car_array.get(position);
+        final Cars car = car_array.get(position);
         imageView.setImageDrawable(context.getResources().getDrawable(car.getImage()));
         textViewName.setText(car.getName());
         textViewBrand.setText(car.getBrand());
+
+        buttonRemove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                car_array.remove(position);
+                notifyDataSetChanged();
+            }
+        });
+
+        buttonDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent= new Intent(context, CarDetailsActivity.class);
+                intent.putExtra("car_id", car.getId());
+                context.startActivity(intent);
+            }
+        });
 
         return view;
     }
